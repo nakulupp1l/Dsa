@@ -17,11 +17,12 @@ Trie::Trie(char d){
 	isTerminal=0;
 }
 void insertw(Trie* root,string str){
+	//base case
 	if(str.length()==0) {
 	 	root->isTerminal=1;
 	 	return;
 	}
-	
+	//main code
 	char ch=str[0];
 	int i=ch-'a';
 	Trie* child;
@@ -32,7 +33,7 @@ void insertw(Trie* root,string str){
 		child=new Trie(ch);
 		root->children[i]=child;
 	}
-	
+	//recursion sambhal legga
 	insertw(child,str.substr(1));
 }
 int main(){
