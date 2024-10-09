@@ -1,4 +1,4 @@
-//hello
+ //hello
 #include<iostream>
 #include<vector>
 #include<stack>
@@ -71,11 +71,62 @@ void delw(Trie* root,string str){
 	//recursion sambhal legga
 	delw(child,str.substr(1));
 }
+
+
+
+void store(Trie* curr,vector<string>&temp,string &prefix){
+	if(curr->isTerminal){
+		temp.push_back(prefix);
+	}
+	for(char ch='a';ch<='z';++ch){
+		int in=ch-'a';
+		Trie* next=curr->children[in];
+		if(next){
+			prefix.push_back(ch);
+			store(next,temp,prefix);
+			prefix.pop_back();
+		} 
+	}
+}
+vector<vector<string>>helper(Trie* root,string input){
+	Trie* prev=root;
+	vector<vector<string>>ans;
+	string prefix="";
+	for(int i=0;i<input.length();++i){
+		char lastc=input[i];
+		int index=lastc-'a';
+		Trie* curr=prev->children[index];
+		if(curr==NULL) break;
+		else{
+			vector<string>temp;
+			prefix.push_back(lastc);
+			store(curr,temp,prefix);
+			ans.push_back(temp);
+			prev=curr;
+		}
+	}
+	return ans;
+}
 int main(){
 	Trie* root=new Trie('-');
 	insertw(root,"coding");
 	insertw(root,"code");
 	delw(root,"coding");
 	cout<<search(root,"coding")<<" "<<search(root,"codin");
-    return 0;
+    
+    Trie* r=new Trie('/');
+	vector<string>v={"code","coding","coder","chmoding","classic","coal"};
+	string input="cl";
+	for(auto i:v){
+		insertw(r,i);
+	}
+	vector<vector<string>>ans=helper(r,input);
+	cout<<endl<<endl<<endl;
+	for(int i=0;i<ans.size();++i){
+		for(int j=0;j<ans[i].size();++j){
+			cout<<ans[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	return 0;
 }
