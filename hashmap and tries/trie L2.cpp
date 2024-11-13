@@ -116,7 +116,7 @@ int main(){
     
     Trie* r=new Trie('/');
 	vector<string>v={"code","coding","coder","chmoding","classic","coal"};
-	string input="cl";
+	string input="cod ";
 	for(auto i:v){
 		insertw(r,i);
 	}
