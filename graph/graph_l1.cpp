@@ -155,10 +155,11 @@ int main() {
     unordered_map<int,bool>visited;
     for(int i=0;i<n;++i){
     if(visited[i]) continue;
-    BFS(i);
+    bfs(i,visited);
 	}
 	*/
 	cout<<endl;
 	g.DFS(0);
+	//same dfs can be done for disconnected graph
 	return 0;
 }
